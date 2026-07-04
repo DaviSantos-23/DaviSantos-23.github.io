@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Davi Santos — Dev Python · Automação · IA</title>
+<meta name="description" content="Portfólio de Davi Santos, estudante de Ciência da Computação (UFS) e desenvolvedor Python focado em automação e IA generativa.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0E14'/%3E%3Ctext x='6' y='23' font-family='monospace' font-size='16' fill='%235EEAD4'%3E%3E_%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E14;
+    --bg-elevated:#10151D;
+    --bg-bar:#12181F;
+    --border:#1E2630;
+    --text-primary:#DCE2E8;
+    --text-secondary:#8B95A1;
+    --text-dim:#565F6B;
+    --accent-teal:#5EEAD4;
+    --accent-amber:#F0B429;
+    --dot-red:#FF5F57;
+    --dot-yellow:#FEBC2E;
+    --dot-green:#28C840;
+    --font-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --font-sans:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --max-w:860px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:var(--font-sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent-teal); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent-teal);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  code, .mono{font-family:var(--font-mono);}
+
+  /* ---------- Terminal chrome (nav) ---------- */
+  .term-bar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--bg-bar);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(6px);
+  }
+  .term-bar-inner{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:10px 24px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .dots{display:flex; gap:6px; flex-shrink:0;}
+  .dots span{width:10px; height:10px; border-radius:50%; display:block;}
+  .dots span:nth-child(1){background:var(--dot-red);}
+  .dots span:nth-child(2){background:var(--dot-yellow);}
+  .dots span:nth-child(3){background:var(--dot-green);}
+  .term-title{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .term-nav{
+    display:flex;
+    gap:18px;
+    margin-left:auto;
+    font-family:var(--font-mono);
+    font-size:13px;
+    overflow-x:auto;
+  }
+  .term-nav a{color:var(--text-secondary); white-space:nowrap;}
+  .term-nav a:hover{color:var(--accent-teal); text-decoration:none;}
+
+  /* ---------- Layout ---------- */
+  main{max-width:var(--max-w); margin:0 auto; padding:0 24px;}
+  section{padding:64px 0; border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+
+  .prompt-label{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent-amber);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .prompt-label::before{content:"$"; color:var(--text-dim);}
+
+  h2{
+    font-family:var(--font-mono);
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 24px;
+    color:var(--text-primary);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding-top:56px;}
+  .hero-terminal{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:28px 28px 32px;
+    font-family:var(--font-mono);
+    font-size:15px;
+    min-height:190px;
+  }
+  .hero-terminal .line{margin:0 0 6px;}
+  .hero-terminal .prompt{color:var(--text-dim);}
+  .hero-terminal .cmd{color:var(--text-primary);}
+  .hero-terminal .out{color:var(--accent-teal); font-weight:500;}
+  .hero-terminal .out-dim{color:var(--text-secondary);}
+  .cursor{
+    display:inline-block;
+    width:8px;
+    height:16px;
+    background:var(--accent-teal);
+    vertical-align:middle;
+    margin-left:2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero-tagline{
+    margin:28px 0 0;
+    font-size:17px;
+    color:var(--text-secondary);
+    max-width:560px;
+  }
+  .hero-tagline strong{color:var(--text-primary); font-weight:600;}
+
+  /* ---------- Stack ---------- */
+  .stack-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:10px;
+  }
+  .stack-item{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-secondary);
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px 12px;
+    transition:border-color .15s, color .15s;
+  }
+  .stack-item:hover{border-color:var(--accent-teal); color:var(--text-primary);}
+  .stack-item::before{content:"▸ "; color:var(--accent-amber);}
+
+  /* ---------- Projects ---------- */
+  .project{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:22px 24px;
+    margin-bottom:16px;
+  }
+  .project-head{
+    font-family:var(--font-mono);
+    font-size:14px;
+    color:var(--text-dim);
+    margin-bottom:8px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:baseline;
+  }
+  .project-head .perm{color:var(--text-dim);}
+  .project-head .name{
+    color:var(--accent-teal);
+    font-weight:600;
+    font-size:15px;
+  }
+  .project-head .name a{color:inherit;}
+  .project-desc{margin:0 0 12px; color:var(--text-secondary);}
+  .project-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    font-family:var(--font-mono);
+    font-size:12px;
+  }
+  .project-tags span{
+    color:var(--accent-amber);
+    background:rgba(240,180,41,0.08);
+    padding:2px 8px;
+    border-radius:4px;
+  }
+  .project-link{
+    display:inline-block;
+    margin-top:12px;
+    font-family:var(--font-mono);
+    font-size:13px;
+  }
+  .badge-wip{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    border:1px dashed var(--border);
+    padding:2px 8px;
+    border-radius:4px;
+    display:inline-block;
+    margin-top:12px;
+  }
+
+  .section-subtitle{
+    color:var(--text-dim);
+    font-size:14px;
+    margin:-16px 0 24px;
+    max-width:520px;
+  }
+
+  .tabs{
+    display:flex;
+    gap:0;
+    border:1px solid var(--border);
+    border-radius:8px 8px 0 0;
+    overflow-x:auto;
+    width:fit-content;
+    max-width:100%;
+  }
+  .tab-btn{
+    font-family:var(--font-mono);
+    font-size:14px;
+    background:var(--bg-elevated);
+    color:var(--text-dim);
+    border:none;
+    padding:12px 20px;
+    cursor:pointer;
+    border-right:1px solid var(--border);
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:color .15s, background .15s;
+  }
+  .tab-btn:last-child{border-right:none;}
+  .tab-btn:hover{color:var(--text-secondary);}
+  .tab-btn.is-active{
+    color:var(--accent-teal);
+    background:var(--bg);
+    box-shadow:inset 0 -2px 0 var(--accent-teal);
+  }
+  .tab-panel{
+    border:1px solid var(--border);
+    border-top:none;
+    border-radius:0 0 8px 8px;
+    padding:28px 24px 8px;
+    background:var(--bg);
+  }
+  .tab-panel h2{margin-top:0;}
+
+
+  .project-template{
+    border-style:dashed;
+    opacity:0.88;
+  }
+  .template-flag{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--accent-amber);
+    margin:0 0 10px;
+  }
+  .fill-in{
+    color:var(--text-dim);
+    font-style:italic;
+  }
+
+  .cv-button{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:22px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--bg);
+    background:var(--accent-teal);
+    padding:9px 16px;
+    border-radius:6px;
+    font-weight:600;
+    transition:opacity .15s;
+  }
+  .cv-button:hover{opacity:0.85; text-decoration:none;}
+
+  /* ---------- Contact ---------- */
+  .contact-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+    font-family:var(--font-mono);
+    font-size:15px;
+  }
+  .contact-list li{
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    gap:14px;
+  }
+  .contact-list li:last-child{border-bottom:none;}
+  .contact-list .k{color:var(--text-dim); min-width:90px;}
+
+  footer{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:32px 24px 56px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+
+  @media (max-width:640px){
+    .stack-grid{grid-template-columns:repeat(2, 1fr);}
+    section{padding:48px 0;}
+    .hero{padding-top:36px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .cursor{animation:none; opacity:1;}
+  }
+</style>
+</head>
+<body>
+
+<div class="term-bar">
+  <div class="term-bar-inner">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <span class="term-title">davi@portfolio: ~</span>
+    <nav class="term-nav">
+      <a href="#sobre">~/sobre</a>
+      <a href="#stack">~/stack</a>
+      <a href="#projetos" data-tab-target="tabbtn-destaque">~/projetos</a>
+      <a href="#projetos" data-tab-target="tabbtn-estagio">~/estagio</a>
+      <a href="#projetos" data-tab-target="tabbtn-dados">~/dados</a>
+      <a href="#contato">~/contato</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <section class="hero" id="sobre">
+    <div class="hero-terminal" id="heroTerminal" aria-live="polite"></div>
+    <p class="hero-tagline">
+      <strong>Estudante de Ciência da Computação (UFS)</strong>, com experiência prática em automação de processos, integração de IA generativa e análise de dados. Já atuei como desenvolvedor Python e analista de dados em ambiente profissional, sempre com foco em levar soluções do protótipo para produção — não apenas provas de conceito.
+    </p>
+    <!-- TODO: suba seu currículo em PDF no repositório (ex: assets/curriculo-davi-santos.pdf) e ajuste o href abaixo -->
+    <a class="cv-button" href="assets/curriculo-davi-santos.pdf" target="_blank" rel="noopener">📄 Baixar currículo (PDF)</a>
+  </section>
+
+  <section id="stack">
+    <div class="prompt-label">ls stack/</div>
+    <h2>Tecnologias</h2>
+    <div class="stack-grid">
+      <div class="stack-item">Python</div>
+      <div class="stack-item">Streamlit</div>
+      <div class="stack-item">Flask</div>
+      <div class="stack-item">n8n</div>
+      <div class="stack-item">OpenAI API</div>
+      <div class="stack-item">Gemini</div>
+      <div class="stack-item">Pandas / NumPy</div>
+      <div class="stack-item">SQL</div>
+      <div class="stack-item">Power BI</div>
+      <div class="stack-item">Supabase</div>
+      <div class="stack-item">Docker</div>
+      <div class="stack-item">Git / GitHub</div>
+      <div class="stack-item">Ciência de Dados – Analista de Dados</div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="prompt-label">cd ~/projetos && ls -F</div>
+    <div class="tabs" role="tablist" aria-label="Categorias de projetos">
+      <button class="tab-btn is-active" role="tab" id="tabbtn-destaque" aria-selected="true" aria-controls="tab-destaque">projetos-em-destaque/</button>
+      <button class="tab-btn" role="tab" id="tabbtn-estagio" aria-selected="false" aria-controls="tab-estagio" tabindex="-1">estagio/</button>
+      <button class="tab-btn" role="tab" id="tabbtn-dados" aria-selected="false" aria-controls="tab-dados" tabindex="-1">ciencia-de-dados/</button>
+    </div>
+
+    <div class="tab-panel" id="tab-destaque" role="tabpanel" aria-labelledby="tabbtn-destaque">
+      <h2>Projetos em Destaque</h2>
+      <p class="section-subtitle">Projetos pessoais, construídos e mantidos por mim do zero.</p>
+
+      <div class="project">
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name"><a href="https://github.com/DaviSantos-23/ClientPulse-AI" target="_blank" rel="noopener">ClientPulse-AI/</a></span>
+        </div>
+        <p class="project-desc">Plataforma de análise de feedback para consultorias: formulário → tratamento de dados → score automático → feedback gerado por IA → dashboard e envio de relatório, tudo orquestrado via n8n.</p>
+        <div class="project-tags">
+          <span>Python</span><span>Streamlit</span><span>Gemini</span><span>OpenAI</span><span>n8n</span><span>Google Sheets</span>
+        </div>
+        <a class="project-link" href="https://github.com/DaviSantos-23/ClientPulse-AI" target="_blank" rel="noopener">→ ver repositório</a>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">gerador-imagens-ia/</span>
+        </div>
+        <p class="project-desc">Aplicação Flask para geração de imagens com IA, com um passo extra de melhoria automática de prompt antes da geração, e opções de formato e qualidade.</p>
+        <div class="project-tags">
+          <span>Flask</span><span>OpenAI</span><span>gpt-image-1</span>
+        </div>
+        <!-- TODO: troque pelo link real do repositório quando estiver público -->
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">chatbot-rag-supabase/</span>
+        </div>
+        <p class="project-desc">Chatbot com busca vetorial (RAG) sobre documentos enviados pelo usuário — PDF, CSV e TXT — com histórico de conversa persistente.</p>
+        <div class="project-tags">
+          <span>Python</span><span>Supabase</span><span>pgvector</span><span>n8n</span>
+        </div>
+        <!-- TODO: troque pelo link real do repositório quando estiver público -->
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">classificador-tickets/</span>
+        </div>
+        <p class="project-desc">Triagem automática de tickets de suporte: classifica categoria e urgência, sugere solução e cria o card diretamente no Trello.</p>
+        <div class="project-tags">
+          <span>n8n</span><span>Groq</span><span>Trello API</span>
+        </div>
+        <!-- TODO: troque pelo link real do repositório quando estiver público -->
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <!-- Para adicionar um novo projeto, copie um bloco <div class="project">...</div> inteiro e ajuste o conteúdo -->
+    </div>
+
+    <div class="tab-panel" id="tab-estagio" role="tabpanel" aria-labelledby="tabbtn-estagio" hidden>
+      <h2>Projetos de Estágio</h2>
+      <p class="section-subtitle">Desenvolvidos durante experiências profissionais.</p>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">DITIN — Secretaria de Tecnologia e Informação</span>
+        </div>
+        <p class="project-desc"><span class="fill-in">[Descreva aqui o sistema ou automação que você desenvolveu como desenvolvedor Python e de integração de IA — qual problema resolvia, e o resultado prático]</span></p>
+        <div class="project-tags">
+          <span>Python</span><span class="fill-in">[+ tecnologias usadas]</span>
+        </div>
+      </div>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">Escola Hamilton Alves Rocha</span>
+        </div>
+        <p class="project-desc"><span class="fill-in">[Descreva aqui as análises ou relatórios que você produziu como analista de dados — que decisões elas ajudaram a embasar]</span></p>
+        <div class="project-tags">
+          <span class="fill-in">[+ tecnologias usadas, ex: Excel, SQL, Power BI]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-dados" role="tabpanel" aria-labelledby="tabbtn-dados" hidden>
+      <h2>Ciência de Dados</h2>
+      <p class="section-subtitle">Análises e modelos aplicados a dados reais e simulados.</p>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name"><span class="fill-in">[nome-da-analise]</span>/</span>
+        </div>
+        <p class="project-desc"><span class="fill-in">[Descreva o dataset, a pergunta que você investigou e o principal insight encontrado]</span></p>
+        <div class="project-tags">
+          <span class="fill-in">[+ tecnologias, ex: Pandas, SQL, Power BI]</span>
+        </div>
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <!-- Duplique o bloco acima pra cada análise/projeto de dados que quiser incluir -->
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="prompt-label">cat contato.txt</div>
+    <h2>Contato</h2>
+    <ul class="contact-list">
+      <li><span class="k">email</span><a href="mailto:davi.fernandescs21@gmail.com">davi.fernandescs21@gmail.com</a></li>
+      <li><span class="k">github</span><a href="https://github.com/DaviSantos-23" target="_blank" rel="noopener">github.com/DaviSantos-23</a></li>
+      <!-- TODO: adicione seu LinkedIn aqui -->
+      <li><span class="k">linkedin</span><span style="color:var(--text-dim)">em breve</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  davi@portfolio:~$ <span class="mono">// última atualização: <span id="lastUpdate"></span></span>
+</footer>
+
+<script>
+  // Preenche a data de "última atualização" com o dia do deploy
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('pt-BR', { year:'numeric', month:'long' });
+
+  // Efeito de digitação no hero, respeitando prefers-reduced-motion
+  const heroLines = [
+    { prompt: 'davi@portfolio:~$ ', cmd: 'whoami', out: 'Davi Santos — dev Python, automação e IA generativa' },
+    { prompt: 'davi@portfolio:~$ ', cmd: 'cat status.txt', out: '6º período de Ciência da Computação (UFS)' }
+  ];
+
+  const container = document.getElementById('heroTerminal');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    container.innerHTML = heroLines.map(l =>
+      `<p class="line"><span class="prompt">${l.prompt}</span><span class="cmd">${l.cmd}</span></p>` +
+      `<p class="line out">${l.out}</p>`
+    ).join('') + '<span class="cursor"></span>';
+  }
+
+  async function typeSequence(){
+    for (const l of heroLines){
+      const cmdLine = document.createElement('p');
+      cmdLine.className = 'line';
+      cmdLine.innerHTML = `<span class="prompt">${l.prompt}</span><span class="cmd"></span><span class="cursor"></span>`;
+      container.appendChild(cmdLine);
+      const cmdSpan = cmdLine.querySelector('.cmd');
+      const cursor = cmdLine.querySelector('.cursor');
+
+      for (const ch of l.cmd){
+        cmdSpan.textContent += ch;
+        await new Promise(r => setTimeout(r, 28));
+      }
+      cursor.remove();
+      await new Promise(r => setTimeout(r, 200));
+
+      const outLine = document.createElement('p');
+      outLine.className = 'line out';
+      outLine.textContent = l.out;
+      container.appendChild(outLine);
+      await new Promise(r => setTimeout(r, 260));
+    }
+    const finalCursor = document.createElement('span');
+    finalCursor.className = 'cursor';
+    container.appendChild(finalCursor);
+  }
+
+  if (reduceMotion){
+    renderStatic();
+  } else {
+    typeSequence();
+  }
+
+  // Abas de "projetos-em-destaque/", "estagio/" e "ciencia-de-dados/"
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanels = {
+    'tabbtn-destaque': document.getElementById('tab-destaque'),
+    'tabbtn-estagio': document.getElementById('tab-estagio'),
+    'tabbtn-dados': document.getElementById('tab-dados')
+  };
+
+  function activateTab(btnId){
+    tabButtons.forEach(btn => {
+      const isActive = btn.id === btnId;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.tabIndex = isActive ? 0 : -1;
+      tabPanels[btn.id].hidden = !isActive;
+    });
+  }
+
+  tabButtons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.id)));
+
+  // Links do topo (~/estagio e ~/dados) já abrem na aba certa
+  document.querySelectorAll('[data-tab-target]').forEach(link => {
+    link.addEventListener('click', () => activateTab(link.dataset.tabTarget));
+  });
+
+</script>
+
+</body>
+</html>
