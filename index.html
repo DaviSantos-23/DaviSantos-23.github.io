@@ -353,6 +353,7 @@
       <a href="#projetos" data-tab-target="tabbtn-destaque">~/projetos</a>
       <a href="#projetos" data-tab-target="tabbtn-estagio">~/estagio</a>
       <a href="#projetos" data-tab-target="tabbtn-dados">~/dados</a>
+      <a href="#projetos" data-tab-target="tabbtn-python">~/python</a>
       <a href="#contato">~/contato</a>
     </nav>
   </div>
@@ -395,6 +396,7 @@
       <button class="tab-btn is-active" role="tab" id="tabbtn-destaque" aria-selected="true" aria-controls="tab-destaque">Projetos em Destaque</button>
       <button class="tab-btn" role="tab" id="tabbtn-estagio" aria-selected="false" aria-controls="tab-estagio" tabindex="-1">Estagio</button>
       <button class="tab-btn" role="tab" id="tabbtn-dados" aria-selected="false" aria-controls="tab-dados" tabindex="-1">Ciencia de Dados</button>
+      <button class="tab-btn" role="tab" id="tabbtn-python" aria-selected="false" aria-controls="tab-python" tabindex="-1">Python</button>
     </div>
 
     <div class="tab-panel" id="tab-destaque" role="tabpanel" aria-labelledby="tabbtn-destaque">
@@ -503,6 +505,26 @@
 
       <!-- Duplique o bloco acima pra cada análise/projeto de dados que quiser incluir -->
     </div>
+
+    <div class="tab-panel" id="tab-python" role="tabpanel" aria-labelledby="tabbtn-python" hidden>
+      <h2>Python</h2>
+      <p class="section-subtitle">Scripts, ferramentas e projetos em Python puro.</p>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name"><span class="fill-in">[nome-do-projeto]</span>/</span>
+        </div>
+        <p class="project-desc"><span class="fill-in">[Descreva o que o script/projeto faz e o problema que resolve]</span></p>
+        <div class="project-tags">
+          <span>Python</span><span class="fill-in">[+ bibliotecas usadas]</span>
+        </div>
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <!-- Duplique o bloco acima pra cada projeto Python que quiser incluir -->
+    </div>
   </section>
 
   <section id="contato">
@@ -575,12 +597,13 @@
     typeSequence();
   }
 
-  // Abas de "projetos-em-destaque/", "estagio/" e "ciencia-de-dados/"
+  // Abas de "projetos-em-destaque/", "estagio/", "ciencia-de-dados/" e "python/"
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabPanels = {
     'tabbtn-destaque': document.getElementById('tab-destaque'),
     'tabbtn-estagio': document.getElementById('tab-estagio'),
-    'tabbtn-dados': document.getElementById('tab-dados')
+    'tabbtn-dados': document.getElementById('tab-dados'),
+    'tabbtn-python': document.getElementById('tab-python')
   };
 
   function activateTab(btnId){
@@ -595,7 +618,7 @@
 
   tabButtons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.id)));
 
-  // Links do topo (~/estagio e ~/dados) já abrem na aba certa
+  // Links do topo (~/estagio, ~/dados e ~/python) já abrem na aba certa
   document.querySelectorAll('[data-tab-target]').forEach(link => {
     link.addEventListener('click', () => activateTab(link.dataset.tabTarget));
   });
