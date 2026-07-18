@@ -354,6 +354,7 @@
       <a href="#projetos" data-tab-target="tabbtn-estagio">~/estagio</a>
       <a href="#projetos" data-tab-target="tabbtn-dados">~/dados</a>
       <a href="#projetos" data-tab-target="tabbtn-python">~/python</a>
+      <a href="#projetos" data-tab-target="tabbtn-ai-agente">~/ai-agente</a>
       <a href="#contato">~/contato</a>
     </nav>
   </div>
@@ -380,13 +381,14 @@
       <div class="stack-item">n8n</div>
       <div class="stack-item">OpenAI API</div>
       <div class="stack-item">Gemini</div>
+      <div class="stack-item">Hugging Face</div>
       <div class="stack-item">Pandas / NumPy</div>
       <div class="stack-item">SQL</div>
       <div class="stack-item">Power BI</div>
       <div class="stack-item">Supabase</div>
       <div class="stack-item">Docker</div>
       <div class="stack-item">Git / GitHub</div>
-      <div class="stack-item">Ciência de Dados – Analista de Dados</div>
+      <div class="stack-item">Ciência de Dados</div>
     </div>
   </section>
 
@@ -397,6 +399,7 @@
       <button class="tab-btn" role="tab" id="tabbtn-estagio" aria-selected="false" aria-controls="tab-estagio" tabindex="-1">Estagio</button>
       <button class="tab-btn" role="tab" id="tabbtn-dados" aria-selected="false" aria-controls="tab-dados" tabindex="-1">Ciencia de Dados</button>
       <button class="tab-btn" role="tab" id="tabbtn-python" aria-selected="false" aria-controls="tab-python" tabindex="-1">Python</button>
+      <button class="tab-btn" role="tab" id="tabbtn-ai-agente" aria-selected="false" aria-controls="tab-ai-agente" tabindex="-1">AI Agente</button>
     </div>
 
     <div class="tab-panel" id="tab-destaque" role="tabpanel" aria-labelledby="tabbtn-destaque">
@@ -542,6 +545,26 @@
 
       <!-- Duplique o bloco acima pra cada projeto Python que quiser incluir -->
     </div>
+
+    <div class="tab-panel" id="tab-ai-agente" role="tabpanel" aria-labelledby="tabbtn-ai-agente" hidden>
+      <h2>AI Agente</h2>
+      <p class="section-subtitle">Agentes de IA construídos com modelos open-source e APIs de inferência.</p>
+
+      <div class="project">
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">Hugging Face</span>
+        </div>
+        <span class="name">AI-Agent-Selector</span>
+        <p class="project-desc">Agente de IA multifuncional construído com Streamlit, onde o usuário escolhe qual ferramenta deseja usar — gerar texto, resumir texto ou abrir um chat com histórico — e a aplicação consome modelos open-source hospedados na Hugging Face Inference API para responder.</p>
+        <div class="project-tags">
+          <span>Python</span><span>Streamlit</span><span>Hugging Face</span><span>Inference API</span>
+        </div>
+        <a class="project-link" href="https://github.com/DaviSantos-23/AI-Agent-Selector" target="_blank" rel="noopener">→ ver repositório</a>
+      </div>
+
+      <!-- Duplique o bloco acima pra cada novo agente de IA que quiser incluir -->
+    </div>
   </section>
 
   <section id="contato">
@@ -614,13 +637,14 @@
     typeSequence();
   }
 
-  // Abas de "projetos-em-destaque/", "estagio/", "ciencia-de-dados/" e "python/"
+  // Abas de "projetos-em-destaque/", "estagio/", "ciencia-de-dados/", "python/" e "ai-agente/"
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabPanels = {
     'tabbtn-destaque': document.getElementById('tab-destaque'),
     'tabbtn-estagio': document.getElementById('tab-estagio'),
     'tabbtn-dados': document.getElementById('tab-dados'),
-    'tabbtn-python': document.getElementById('tab-python')
+    'tabbtn-python': document.getElementById('tab-python'),
+    'tabbtn-ai-agente': document.getElementById('tab-ai-agente')
   };
 
   function activateTab(btnId){
@@ -635,7 +659,7 @@
 
   tabButtons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.id)));
 
-  // Links do topo (~/estagio, ~/dados e ~/python) já abrem na aba certa
+  // Links do topo (~/estagio, ~/dados, ~/python e ~/ai-agente) já abrem na aba certa
   document.querySelectorAll('[data-tab-target]').forEach(link => {
     link.addEventListener('click', () => activateTab(link.dataset.tabTarget));
   });
