@@ -355,6 +355,7 @@
       <a href="#projetos" data-tab-target="tabbtn-dados">~/dados</a>
       <a href="#projetos" data-tab-target="tabbtn-python">~/python</a>
       <a href="#projetos" data-tab-target="tabbtn-ai-agente">~/ai-agente</a>
+      <a href="#projetos" data-tab-target="tabbtn-ml">~/machine-learning</a>
       <a href="#contato">~/contato</a>
     </nav>
   </div>
@@ -376,6 +377,7 @@
     <h2>Tecnologias</h2>
     <div class="stack-grid">
       <div class="stack-item">Python</div>
+      <div class="stack-item">Machine Learning</div>
       <div class="stack-item">Streamlit</div>
       <div class="stack-item">Flask</div>
       <div class="stack-item">n8n</div>
@@ -400,6 +402,7 @@
       <button class="tab-btn" role="tab" id="tabbtn-dados" aria-selected="false" aria-controls="tab-dados" tabindex="-1">Ciencia de Dados</button>
       <button class="tab-btn" role="tab" id="tabbtn-python" aria-selected="false" aria-controls="tab-python" tabindex="-1">Python</button>
       <button class="tab-btn" role="tab" id="tabbtn-ai-agente" aria-selected="false" aria-controls="tab-ai-agente" tabindex="-1">AI Agente</button>
+      <button class="tab-btn" role="tab" id="tabbtn-ml" aria-selected="false" aria-controls="tab-ml" tabindex="-1">Machine Learning</button>
     </div>
 
     <div class="tab-panel" id="tab-destaque" role="tabpanel" aria-labelledby="tabbtn-destaque">
@@ -477,6 +480,20 @@
           <span>Python</span><span>n8n</span><span>Google Sheets</span><span>Gmail API</span><span>Workflow Automation</span><span>Excel (XLSX)</span><span>Business Automation</span><span>HTTP Request</span><span>REST API</span>
         </div>
            <a class="project-link" href="https://github.com/DaviSantos-23/InventoryGuard-AI" target="_blank" rel="noopener">ver repositório</a>
+      </div>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name">DITIN — Secretaria de Tecnologia e Informação</span>
+        </div>
+        <span class="name">ArticleInsight-AI</span>
+        <p class="project-desc">Sistema inteligente para análise e resumo automático de artigos científicos e documentos utilizando IA Generativa. A plataforma extrai o conteúdo do documento, gera resumos contextualizados, identifica palavras-chave e apresenta os resultados em uma interface web e encaminha o resumo do link para o gmail referenciado.</p>
+        <div class="project-tags">
+          <span>JavaScript</span><span>Analytics</span><span>Gmail</span><span>Transformers</span><span>Dados</span><span>Google Sheets</span><span>Gemini</span><span>Grok</span><span>Document Analysis</span><span>HTTP Request</span><span>AI Agent</span>
+        </div>
+        <a class="project-link" href="https://github.com/DaviSantos-23/ArticleInsight-AI" target="_blank" rel="noopener">→ ver repositório</a>
       </div>
 
       <div class="project project-template">
@@ -598,6 +615,26 @@
 
       <!-- Duplique o bloco acima pra cada novo agente de IA que quiser incluir -->
     </div>
+
+    <div class="tab-panel" id="tab-ml" role="tabpanel" aria-labelledby="tabbtn-ml" hidden>
+      <h2>Machine Learning</h2>
+      <p class="section-subtitle">Modelos preditivos, classificação e outras aplicações de ML.</p>
+
+      <div class="project project-template">
+        <p class="template-flag">modelo — edite este bloco</p>
+        <div class="project-head">
+          <span class="perm">drwxr-xr-x</span>
+          <span class="name"><span class="fill-in">[nome-do-projeto]</span>/</span>
+        </div>
+        <p class="project-desc"><span class="fill-in">[Descreva o problema, o dataset utilizado, o modelo/algoritmo escolhido e os resultados obtidos]</span></p>
+        <div class="project-tags">
+          <span class="fill-in">[+ tecnologias, ex: scikit-learn, TensorFlow, PyTorch]</span>
+        </div>
+        <span class="badge-wip">repositório a publicar</span>
+      </div>
+
+      <!-- Duplique o bloco acima pra cada projeto de Machine Learning que quiser incluir -->
+    </div>
   </section>
 
   <section id="contato">
@@ -677,7 +714,8 @@
     'tabbtn-estagio': document.getElementById('tab-estagio'),
     'tabbtn-dados': document.getElementById('tab-dados'),
     'tabbtn-python': document.getElementById('tab-python'),
-    'tabbtn-ai-agente': document.getElementById('tab-ai-agente')
+    'tabbtn-ai-agente': document.getElementById('tab-ai-agente'),
+    'tabbtn-ml': document.getElementById('tab-ml')
   };
 
   function activateTab(btnId){
